@@ -36,6 +36,33 @@ weatherApp.config(function($routeProvider)
   });
   
 });
+
+//DIRECTIVES
+
+
+weatherApp.directive("weatherReport",function()
+{
+  return {
+    restrict:'E',
+    templateUrl:'directives/weather_report.html',
+    replace:true,
+    scope:
+    {
+      weatherDay:"=",//for JSON it is =
+      convertToStandard:"&",//for javascript function it is &
+      convertToDate:"&",
+      dataFormat:"@"//for simple string
+      
+      
+    }
+    
+    
+  };
+  
+  
+});
+
+
 //SERVICE
 
 /*
@@ -44,6 +71,7 @@ Service will allow you to share data between 2 controller as Service are singlet
 so that they have only copy and no multiple instances of them are created
 
 */
+
 
 weatherApp.service('cityService',function()
 {

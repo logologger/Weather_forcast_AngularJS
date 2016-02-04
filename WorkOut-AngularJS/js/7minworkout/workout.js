@@ -60,6 +60,23 @@ angular.module("7minworkout").controller("workoutController",["$scope","$interva
     this.title=args.title;
     this.restBetweenExercise=args.restBetweenExercise;
     
+    
+    this.totalWorkoutDuration=function()
+    {
+      if(this.exercises.length===0)
+        return 0;
+      var total=0;
+      angular.forEach(this.exercises,function(exercise)
+      {
+        total+=exercise.duration;
+        
+        
+      });
+      
+      return this.restBetweenExercise*(this.exercises.length-1)+total;
+      
+    };
+    
   }
   
   var restExercise;
@@ -92,6 +109,10 @@ angular.module("7minworkout").controller("workoutController",["$scope","$interva
     
     workoutPlan=createWorkout();
     
+   $scope.workoutTimeRemaining=workoutPlan.totalWorkoutDuration();
+    
+    
+      
     //This is used to specify the rest period between 
     //two exercise
     restExercise={
@@ -105,6 +126,15 @@ angular.module("7minworkout").controller("workoutController",["$scope","$interva
       }),
       duration:workoutPlan.restBetweenExercise
   };
+  
+  
+          $interval(function()
+          {
+            $scope.workoutTimeRemaining=$scope.workoutTimeRemaining-1;
+            
+          },1000,$scope.workoutTimeRemaining);
+          
+          
     startExercise(workoutPlan.exercises.shift());
     
   };
@@ -266,6 +296,9 @@ angular.module("7minworkout").controller("workoutController",["$scope","$interva
               }),
               duration: 30
           });
+          
+          
+          
     return workout;
     
   };

@@ -8,6 +8,8 @@
         <div id="exercise-pane" class="col-sm-8 col-sm-offset- ">
           <div class="row workout-content">
             <div class="workout-display-div">
+              
+              <h4>WorkoutTime Remaining - {{workoutTimeRemaining | secondsToTime }}</h4>
               <h1>{{currentExercise.exercise.title}}</h1>
               <img class="img-responsive" ng-src="{{currentExercise.exercise.image}}"/>
               <div class="progress time-progress">
